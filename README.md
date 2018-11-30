@@ -1,5 +1,5 @@
 # Title 1 : Install Oracale-XE
-  Docker Terminal을 실행시킵니다. h1
+  Docker Terminal을 실행시킵니다.
  $> docker search oracle
    -> Docker에서 oracle이라는 프로그램을 먼저 검색합니다. 검색한 oracle 목록에서 star수가 많은것중에 oracle 무료 버젼인 sath89/oracle-xe-11g를 확인합니다.
  $> docer pull sath89/oracle-xe-11g
