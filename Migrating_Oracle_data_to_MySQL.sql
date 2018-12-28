@@ -125,7 +125,7 @@ with myconn:
             hire_date datetime not null default current_timestamp,
             job varchar(45) not null default ' ',
             salary decimal(8,2) default 0,
-            commission_pct decimal(2,2) default 0,
+            commission_pct decimal(4,2) default 0,
             manager_id int default 0,
             department int default 0,
             primary key(id)
