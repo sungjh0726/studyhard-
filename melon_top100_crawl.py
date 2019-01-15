@@ -5,9 +5,8 @@ if __name__ == "__main__":
     RANK = 100
  
     header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'}
-    url = requests.get('https://www.melon.com/chart/index.htm', headers = header)
-    lurl = "https://www.melon.com/commonlike/getSongLike.json"
-    html = url.text
+    req = requests.get('https://www.melon.com/chart/index.htm', headers = header)
+    html = req.text
     parse = BeautifulSoup(html, 'html.parser')
  
     titles = parse.find_all("div", {"class": "ellipsis rank01"})
