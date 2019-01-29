@@ -1,1 +1,67 @@
+import requests, json
+from bs4 import BeautifulSoup
+from pprint import pprint
+import pymysql
+import re
+
+def get_conn(db):
+    return pymysql.connect(
+                host='34.85.73.154',
+                user='root',
+                password='1q2w3e',
+                port=3306,
+                db=db,
+                charset='utf8')
+
+
+url = "https://openapi.naver.com/v1/search/blog.json"
+
+title = "파이썬"
+params = {
+    "query": title,
+    "display": 100,
+    "start": 1,
+    "sort": "date"
+}
+
+headers = {
+    "X-Naver-Client-Id": "JdPJow_YardxNqZZ_Xa1",
+    "X-Naver-Client-Secret": "zWrh7TvHer"
+}
+
+result = requests.get(url, params=params, headers=headers).text
+
+jsonData = json.loads(result)
+# print(jsonData['items'])
+# exit()
+pattern1 = re.compile('\/\/.*\/(.*)')
+
+pattern2 = re.compile('\/\/(.*)\/')
+
+
+bllst = []
+blplst = []
+for bl in jsonData['items']:
+    t_lst1 = []
+    t_lst2 = []
+    t_bllnk = bl['bloggerlink']
+    det = re.findall(pattern2, t_bllnk)[0]
+    if det == 'blog.naver.com':
+        blID = re.findall(pattern1, t_bllnk)[0]
+    else:
+        blID = det
+    blname = bl['bloggername']
+    t_lst1.append(blID)
+    t_lst1.append(blname)
+    t_lst1.append(t_bllnk)
+    bllst.append(t_lst1)
+    title = bl['title']
+    link = bl['link']
+    postdate = bl['postdate']
+    t_lst2.append(title)
+    t_lst2.append(link)
+    t_lst2.append(blID)
+    t_lst2.append(postdate)
+    blplst.append(t_lst2)
+
 
