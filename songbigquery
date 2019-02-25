@@ -21,7 +21,7 @@ with conn:
 
      print ("Song data collected")
 
-    # Ablum table 데이터 가져오기
+
     album_sql = '''select album_id, album_title, album_genre, 
                 cast(rating as char(30)) as rating,
                 cast(releasedt as char(30)) as releasedt,
@@ -32,13 +32,13 @@ with conn:
 
     print ("Album data collected")
 
-    # albumid 가져오기
+
     albumids = []
     for i in albums:
         albumid = i['album_id']
         albumids.append(albumid)
 
-    # songs에 albumdetail이라는 key를 만들고 value값으로 album 데이터 집어넣기
+  
        for song in songs:
         song['albumdetail'] = albumdetail[song['album_id']]
     
