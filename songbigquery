@@ -19,12 +19,7 @@ conn = get_conn('melondb')
 with conn:
     cur = conn.cursor()
 
-    # Song table 데이터 가져오기
-    song_sql = "select s.song_no, s.title, s.genre, a.album_id from MS_Song s inner join Album a on s.album_id = a.album_id "
-    cur.execute(song_sql)
-    songs = cur.fetchall()
-
-    print ("Song data collected")
+     print ("Song data collected")
 
     # Ablum table 데이터 가져오기
     album_sql = '''select album_id, album_title, album_genre, 
@@ -44,11 +39,7 @@ with conn:
         albumids.append(albumid)
 
     # songs에 albumdetail이라는 key를 만들고 value값으로 album 데이터 집어넣기
-    albumdetail = {}
-    for i in range(len(albumids)):
-        albumdetail[albumids[i]] = albums[i]
-
-    for song in songs:
+       for song in songs:
         song['albumdetail'] = albumdetail[song['album_id']]
     
 
@@ -57,9 +48,6 @@ with conn:
 
 client = bigquery.get_client(json_key_file='../../bigquery.json', readonly = False)
 print("identification success")
-
-DATABASE='bqdb'
-TABLE='Songs'
 
 if not client.check_table(DATABASE, TABLE):
     print("Create table {}.{}".format(DATABASE, TABLE, file = sys.stderr))
