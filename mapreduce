@@ -16,11 +16,7 @@ def mapdata():
     0043012650999991943032412004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+00191+99999999999
     0043012650999991949032412004+62300+010750FM-12+048599999V0202701N00461220001CN0500001N9+00131+99999999999'''
 
-    sdata = data.split('\n')
-    pattern = re.compile("099999(19.*)0[1-9]\+")
-    dpattern = re.compile("N9(.*)\+99999999999")
-
-    #year, data
+       #year, data
     years = []
     datas = []
     for s in sdata:
@@ -33,7 +29,7 @@ def mapdata():
         data = data[-6:-1]
         datas.append(data)
 
-    # 유효한 데이터만 추출하기    
+   
     mapdata = []
     for idx, d in enumerate(datas):
         if d[-1] in '0,1,4,5,9':
@@ -44,9 +40,8 @@ def mapdata():
     return mapdata
     
 
-def reducedata():
-    
-    # 연도를 key로, 온도를 value로 하는 dictionary 만들기
+  
+ 
     dic = {}
     for l in mapdata():
         if l[0] not in dic.keys():
@@ -55,7 +50,7 @@ def reducedata():
             lst = dic[l[0]]
             lst.append(l[1])
 
-    # 연도별 최고기온을 구하고 결과를 string type으로 return하기
+ 
     s = ''
     for k, v in dic.items():
         v.sort()
